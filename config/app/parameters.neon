@@ -1,0 +1,33 @@
+# Parameters
+#
+parameters:
+
+	# System
+	system:
+		error:
+			email: developer@hintik.cz
+			presenter: Front:Error
+
+	# Database
+	database:
+		driver: pdo_mysql
+		port: 3306
+
+	# Project
+	project:
+		rev: "1.0.0"
+
+	# File
+	files:
+		root: %appDir%/../data/files
+
+	# Mailing
+	mailing:
+		from: webapp@localhost
+		from_name: Webapp
+
+	# STMP
+	smtp:
+		host: localhost
+		username: fake
+		password: fake

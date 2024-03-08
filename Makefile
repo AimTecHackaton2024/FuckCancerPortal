@@ -5,7 +5,7 @@
 #
 #project: install setup
 DIR_DOCKER=docker
-PHP_CONTAINER_NAME=PIA-SP2_apache
+PHP_CONTAINER_NAME=fuck-cancer-portal_apache
 
 # start aplikace
 up:

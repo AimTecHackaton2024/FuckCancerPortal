@@ -37,6 +37,8 @@ final class StaticAuthorizator extends Permission
         $this->addResource('Admin:BlogPost:list');
         $this->addResource('Admin:BlogPost:add');
         $this->addResource('Admin:BlogPost:edit');
+        $this->addResource('Admin:Settings');
+        $this->addResource('Admin:Organization:list');
 	}
 
 	/**

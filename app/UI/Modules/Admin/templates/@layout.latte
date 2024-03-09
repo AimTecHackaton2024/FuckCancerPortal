@@ -32,6 +32,7 @@
 <div class="wrapper">
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
 		<!-- Left navbar links -->
 		<ul class="navbar-nav">
 			<li class="nav-item">
@@ -49,37 +50,19 @@
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown user-menu">
 				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					<img src="../../dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
-					<span class="d-none d-md-inline">Alexander Pierce</span>
+					<img src="{$basePath}/assets/admin/img/profile_image.png" class="user-image img-circle elevation-2" alt="User Image">
+					<span class="d-none d-md-inline">{$userEntity->getName()}</span>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
 
 					<li class="user-header bg-primary">
-						<img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-						<p>
-							Alexander Pierce - Web Developer
-							<small>Member since Nov. 2012</small>
-						</p>
-					</li>
-
-					<li class="user-body">
-						<div class="row">
-							<div class="col-4 text-center">
-								<a href="#">Followers</a>
-							</div>
-							<div class="col-4 text-center">
-								<a href="#">Sales</a>
-							</div>
-							<div class="col-4 text-center">
-								<a href="#">Friends</a>
-							</div>
-						</div>
-
+						<img src="{$basePath}/assets/admin/img/profile_image.png" class="img-circle elevation-2" alt="User Image">
+						<p>{$userEntity->getName()}</p>
 					</li>
 
 					<li class="user-footer">
-						<a href="#" class="btn btn-default btn-flat">Profile</a>
-						<a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+						<a href="#" class="btn btn-default btn-flat">Profil</a>
+						<a href="#" class="btn btn-default btn-flat float-right">Odhlásit se</a>
 					</li>
 				</ul>
 			</li>
@@ -95,7 +78,7 @@
 			<!-- Sidebar user (optional) -->
 			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 				<div class="image">
-					<img src="https://avatars.dicebear.com/api/initials/{$_user->getIdentity()->login}.svg"
+					<img src="{$basePath}/assets/admin/img/profile_image.png"
 						 class="img-circle elevation-2" alt="User Image">
 				</div>
 				<div class="info">
@@ -111,24 +94,30 @@
                          with font-awesome or any other icon font library -->
 
 					<li class="nav-item">
-						<a n:href=":Admin:User:list" class="nav-link">
+						<a n:href="User:list" n:class="nav-link, $presenter->isLinkCurrent('User:list') ? active">
 							<i class="nav-icon far fa-user"></i>
 							<p>
 								Uživatelé
 							</p>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon far fa-plus-square"></i>
+
+
+					{var $isOpen = false}
+					{var $isOpen = $isOpen || $presenter->isLinkCurrent('BlogPost:list')}
+
+					<li n:class="nav-item, $isOpen ? menu-open">
+						<a href="#" n:class="nav-link, $isOpen ? active">
+							<i class="nav-icon fas fa-clipboard-list"></i>
 							<p>
 								Blog
 								<i class="fas fa-angle-left right"></i>
 							</p>
 						</a>
+
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a n:href=":Admin:BlogPost:list" class="nav-link">
+								<a n:href="BlogPost:list" n:class="nav-link, $presenter->isLinkCurrent('BlogPost:list') ? active   ">
 									<i class="far fa-circle nav-icon"></i>
 									<p>Příspěvky</p>
 								</a>
@@ -137,10 +126,10 @@
 					</li>
 
 					<li class="nav-item">
-						<a n:href=":Admin:BlogPost:list" class="nav-link">
-							<i class="nav-icon far fa-square"></i>
+						<a n:href="Settings:" n:class="nav-link, $presenter->isLinkCurrent('Settings:') ? active">
+							<i class="nav-icon fas fa-gear"></i>
 							<p>
-								Blog
+								Nastavení
 							</p>
 						</a>
 					</li>

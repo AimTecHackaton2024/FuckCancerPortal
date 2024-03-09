@@ -27,6 +27,10 @@ class UserListGrid extends BaseComponent
         $grid->setDataSource($this->userService->getAllDataSource());
 
         $grid->addColumnNumber('id', '#');
+        $grid->addColumnText('name', 'Jméno');
+        $grid->addColumnText('email', 'E-mail');
+        $grid->addColumnText('role', 'Role');
+        $grid->addColumnNumber('status', 'Stav');
 
         return $grid;
     }

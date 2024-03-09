@@ -20,6 +20,8 @@ final class Version20240309004649 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql("DROP TABLE IF EXISTS blog_attachments");
+
         $this->addSql("create table blog_attachments
                 (
                     id          int auto_increment,

@@ -1,12 +1,22 @@
 {snippet blogPostForm}
     <form n:name="form" n:class="form">
 
-        {*}
         <div class="form-group">
-            {label shortName /}
-            {input shortName class => "form-control"}
+            {label title /}
+            {input title class => "form-control"}
         </div>
-        {/*}
+        <div class="form-group">
+            {label article /}
+            {input article class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label status /}
+            {input status class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label youtubeVideoUrl /}
+            {input youtubeVideoUrl class => "form-control"}
+        </div>
 
         <div class="form-group mb-0 mt-4">
             {input send class => "btn bg-gradient-primary mb-0"}

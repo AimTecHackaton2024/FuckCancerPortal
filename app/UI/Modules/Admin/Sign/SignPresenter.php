@@ -4,6 +4,8 @@ namespace App\UI\Modules\Admin\Sign;
 
 use App\Model\App;
 use App\Model\Exception\Runtime\AuthenticationException;
+use App\UI\Components\Admin\Sign\SignInForm;
+use App\UI\Components\Admin\Sign\SignInFormFactory;
 use App\UI\Form\BaseForm;
 use App\UI\Form\FormFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
@@ -14,10 +16,16 @@ final class SignPresenter extends BaseAdminPresenter
 	/** @var string @persistent */
 	public string $backlink;
 
-	/** @var FormFactory @inject */
-	public FormFactory $formFactory;
+    private SignInFormFactory $signInFormFactory;
 
-	public function checkRequirements(mixed $element): void
+    public function __construct(
+        SignInFormFactory $signInFormFactory,
+    )
+    {
+        $this->signInFormFactory = $signInFormFactory;
+    }
+
+    public function checkRequirements(mixed $element): void
 	{
 		// Disable auth
 	}
@@ -67,5 +75,10 @@ final class SignPresenter extends BaseAdminPresenter
 
 		return $form;
 	}
+
+    public function createComponentSignInForm(): SignInForm
+    {
+        return $this->signInFormFactory->create();
+    }
 
 }

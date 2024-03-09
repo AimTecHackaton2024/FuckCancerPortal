@@ -15,7 +15,7 @@ class BlogPostForm extends BaseComponent
 
     public function __construct(
         BlogPostService $blogPostService,
-        ?BlogPost $blogPost,
+        ?BlogPost       $blogPost,
     )
     {
         $this->blogPostService = $blogPostService;
@@ -27,9 +27,14 @@ class BlogPostForm extends BaseComponent
         /** @var BaseForm $form */
         $form = $this['form'];
 
-        $form->setDefaults([
-            // Defaults
-        ]);
+        if ($this->blogPost)
+        {
+            $form->setDefaults([
+                'title'           => $this->blogPost->getTitle(),
+                'article'         => $this->blogPost->getArticle(),
+                'youtubeVideoUrl' => $this->blogPost->getYoutubeVideoUrl(),
+            ]);
+        }
 
         parent::render($params);
     }
@@ -37,6 +42,16 @@ class BlogPostForm extends BaseComponent
     public function createComponentForm(): BaseForm
     {
         $form = new BaseForm();
+
+        $form->addText('title', 'Titulek')
+            ->setRequired(true)
+        ;
+
+        $form->addTextArea('article', 'Článek');
+
+        $form->addDateTime('publishedDate', 'Publikováno');
+
+        $form->addText('youtubeVideoUrl', 'Odkaz na YouTube video');
 
         $form->addSubmit('send', 'Uložit');
 

@@ -14,6 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BlogPost extends AbstractEntity
 {
+    public const STATUS_NEW = 0;
+    public const STATUS_ASSIGNED = 1;
+    public const STATUS_APPROVED = 2;
+
     use TId;
     use TAdminautFields;
 

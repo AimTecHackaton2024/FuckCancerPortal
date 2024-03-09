@@ -3,6 +3,7 @@
 services:
 	# Forms ===================
 	- App\UI\Form\FormFactory
+	- App\UI\Components\Admin\Sign\SignInFormFactory
 	- App\UI\Components\Admin\Blog\BlogPostForm\BlogPostFormFactory
 
 	# Grids

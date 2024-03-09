@@ -1,0 +1,47 @@
+{layout '../../../Base/templates/@layout.latte'}
+
+{block #head}
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/select2.min.css"
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/adminlte.css">
+
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/datagrid.css">
+
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/datagrid-spinners.css">
+
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/portal.css">
+
+    <link rel="stylesheet" href="{$basePath}/www/assets/admin/css/toastr.min.css">
+{/block}
+
+{block #main}
+<body class="login-page" style="min-height: 496.781px;">
+<div class="login-box">
+    <div class="login-logo">
+        <a n:href=":Front:Home:">
+            <img src="{$basePath}/assets/admin/img/admin-logo.svg" rel="admin logo">
+        </a>
+    </div>
+
+    {ifset #content}
+        {include #content}
+    {/ifset}
+</div>
+
+<script src="{$basePath}/assets/admin/js/jquery.min.js"></script>
+
+<script src="{$basePath}/assets/admin/js/bootstrap.bundle.min.js"></script>
+
+<script src="{$basePath}/assets/admin/js/adminlte.min.js?v=3.2.0"></script>
+
+
+<div id="forest-ext-shadow-host"></div></body>
+
+
+{/block}

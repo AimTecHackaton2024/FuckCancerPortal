@@ -18,12 +18,17 @@
 
 	{block #head}{/}
 </head>
-<body>
-{ifset #header}
-	{include #header}
-{/ifset}
-{ifset #content}
-	{include #content}
-{/ifset}
-</body>
+{block #main}
+	<body>
+	{ifset #header}
+		{include #header}
+	{/ifset}
+	{ifset #content}
+		{include #content}
+	{/ifset}
+	{ifset #footer}
+		{include #footer}
+	{/ifset}
+	</body>
+{/block}
 </html>

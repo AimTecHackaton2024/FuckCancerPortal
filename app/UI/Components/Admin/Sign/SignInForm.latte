@@ -1,0 +1,22 @@
+{snippet signInForm}
+    <form n:name="form" n:class="form">
+
+        <div class="form-label-group">
+            {label email /}
+            {input email class => "form-control"}
+        </div>
+
+        <div class="form-label-group">
+            {label password /}
+            {input password class => "form-control"}
+        </div>
+
+        <div class="form-group mb-0 mt-4">
+            {input send class => "btn bg-gradient-primary mb-0"}
+
+            {if isset($form->getComponents()['cancel'])}
+                {input cancel class => "btn bg-gradient-default mb-0 float-right"}
+            {/if}
+        </div>
+    </form>
+{/snippet}

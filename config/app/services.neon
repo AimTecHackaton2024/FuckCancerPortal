@@ -8,10 +8,14 @@ services:
 	# Grids
 	- App\UI\Components\Admin\User\UserListGrid\UserListGridFactory
 	- App\UI\Components\Admin\Blog\BlogPostListGrid\BlogPostListGridFactory
+	- App\UI\Components\Organization\OrganizationListGrid\OrganizationListGridFactory
 
 	# Services
 	- App\Domain\User\UserService
 	- App\Domain\Blog\BlogPostService
+	- App\Domain\Organization\OrganizationService
+	- App\Domain\UserOrganization\UserOrganizationService
+
 
 	# Latte ===================
 	latte.latteFactory:

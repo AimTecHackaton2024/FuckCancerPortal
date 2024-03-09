@@ -8,7 +8,7 @@ use App\Model\Database\Entity\TId;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Domain\User\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Blog\BlogPostRepository")
  * @ORM\Table(name="`blog_posts`")
  * @ORM\HasLifecycleCallbacks
  */

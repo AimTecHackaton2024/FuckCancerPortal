@@ -47,4 +47,9 @@ class BlogPostTag extends AbstractEntity
         $this->blogPost = $post;
         $this->blogTag = $tag;
     }
+
+    public function getBlogTagId(): int
+    {
+        return $this->blogTagId;
+    }
 }

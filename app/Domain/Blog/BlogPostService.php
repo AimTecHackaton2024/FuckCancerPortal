@@ -61,7 +61,7 @@ class BlogPostService
         $post->setStatus($data['status']);
         $post->setPublishedDate($data['publishedDate']);
         $post->setYoutubeVideoUrl($data['youtubeVideoUrl']);
-
+        $this->savePostTags($post, $data['postTags']);
         /*
         foreach (['photoMain', 'photo1', 'photo2', 'photo3', 'photo4'] as $photoName)
 
@@ -90,19 +90,19 @@ class BlogPostService
     public function updateBlogPost(?BlogPost $post, array $data)
     {
 
-        bdump($data);
         $post->setTitle($data['title']);
         $post->setArticle($data['article']);
         $post->setPerex($data['perex']);
         $post->setStatus($data['status']);
         $post->setPublishedDate($data['publishedDate']);
         $post->setYoutubeVideoUrl($data['youtubeVideoUrl']);
-
+        $this->savePostTags($post, $data['postTags']);
         $this->em->flush($post);
     }
 
     public function savePostTags(BlogPost $blogPost, array $tags): void
     {
+
         $this->em->createQueryBuilder()
             ->delete(BlogPostTag::class, 'bps')
             ->where('bps.blogPost = :post')
@@ -110,6 +110,8 @@ class BlogPostService
             ->getQuery()
             ->execute()
         ;
+
+        $this->em->flush();
 
         foreach ($tags as $tagId)
         {
@@ -123,7 +125,6 @@ class BlogPostService
             $blogPostTag = new BlogPostTag($blogPost, $tag);
             $this->em->persist($blogPostTag);
         }
-
         $this->em->flush();
     }
 
@@ -135,9 +136,10 @@ class BlogPostService
 
         foreach($tags as $tag)
         {
-            $result[] = $tag->getId();
+            $result[] = $tag->getBlogTagId();
         }
 
+        bdump($result);
         return $result;
     }
 

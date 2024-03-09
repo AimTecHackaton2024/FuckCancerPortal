@@ -38,7 +38,13 @@
     "nettrine/dbal": "^0.8.0",
     "nettrine/cache": "^0.3.0",
     "nettrine/migrations": "^0.8.0",
-    "nettrine/fixtures": "^0.8.0"
+    "nettrine/fixtures": "^0.8.0",
+    "ramsey/uuid-doctrine": "^2.0",
+    "ublaboo/datagrid": "^6.9",
+    "contributte/translation": "^2.0",
+    "contributte/redis": "v0.5.4",
+    "contributte/oauth2-client": "^0.3.2",
+    "league/oauth2-google": "^4.0"
   },
   "require-dev": {
     "contributte/qa": "^0.3",

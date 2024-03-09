@@ -6,6 +6,7 @@ use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TCreatedAt;
 use App\Model\Database\Entity\TId;
 use App\Model\Database\Entity\TUpdatedAt;
+use App\Model\Database\Entity\TUuid;
 use App\Model\Exception\Logic\InvalidArgumentException;
 use App\Model\Security\Identity;
 use DateTime;
@@ -13,15 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\User\UserRepository")
- * @ORM\Table(name="`user`")
+ * @ORM\Table(name="`adminaut_user`")
  * @ORM\HasLifecycleCallbacks
  */
 class User extends AbstractEntity
 {
 
 	use TId;
-	use TCreatedAt;
-	use TUpdatedAt;
 
 	public const ROLE_ADMIN = 'admin';
 	public const ROLE_USER = 'user';
@@ -32,139 +31,368 @@ class User extends AbstractEntity
 
 	public const STATES = [self::STATE_FRESH, self::STATE_BLOCKED, self::STATE_ACTIVATED];
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
+	/** @ORM\Column(type="string", length=128, nullable=FALSE, unique=false) */
 	private string $name;
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
-	private string $surname;
+    /** @ORM\Column(type="string", length=128, nullable=FALSE, unique=TRUE) */
+    private string $email;
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=TRUE) */
-	private string $email;
-
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=TRUE) */
-	private string $username;
-
-	/** @ORM\Column(type="integer", length=10, nullable=FALSE) */
-	private int $state;
-
-	/** @ORM\Column(type="string", length=255, nullable=FALSE) */
+	/** @ORM\Column(type="string", length=128, nullable=FALSE, unique=false) */
 	private string $password;
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE) */
+	/** @ORM\Column(type="boolean", nullable=FALSE, unique=TRUE) */
+	private bool $passwordChangeOnNextLogon;
+
+	/** @ORM\Column(type="string", length=128, nullable=FALSE, unique=FALSE) */
 	private string $role;
 
-	/**
-	 * @var DateTime|NULL
-	 * @ORM\Column(type="datetime", nullable=TRUE)
-	 */
-	private ?DateTime $lastLoggedAt = null;
+    /** @ORM\Column(type="string", length=128, nullable=FALSE, unique=FALSE) */
+    private string $language;
 
-	public function __construct(string $name, string $surname, string $email, string $username, string $passwordHash)
+    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
+    private int $status;
+
+    /** @ORM\Column(type="string", length=255, nullable=TRUE, unique=FALSE) */
+    private string $passwordRecoveryKey;
+
+    /** @ORM\Column(type="datetime", nullable=TRUE, unique=FALSE) */
+    private ?DateTime $passwordRecoveryExpiresAt;
+
+    /** @ORM\Column(type="boolean", nullable=FALSE, unique=FALSE) */
+    private bool $active;
+
+    /** @ORM\Column(type="datetime", nullable=FALSE, unique=FALSE) */
+    private DateTime $inserted;
+
+    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
+    private int $insertedBy;
+
+    /** @ORM\Column(type="datetime", nullable=FALSE, unique=FALSE) */
+    private DateTime $updated;
+
+    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
+    private int $updatedBy;
+
+    /** @ORM\Column(type="boolean", nullable=FALSE, unique=FALSE) */
+    private bool $deleted;
+
+    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
+    private int $deletedBy;
+
+    /** @ORM\Column(type="text", nullable=TRUE, unique=FALSE) */
+    private ?string $deletedData;
+
+    /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=FALSE) */
+    private string $dtype;
+
+
+	public function __construct()
 	{
-		$this->name = $name;
-		$this->surname = $surname;
-		$this->email = $email;
-		$this->username = $username;
-		$this->password = $passwordHash;
-
-		$this->role = self::ROLE_USER;
-		$this->state = self::STATE_FRESH;
 	}
 
-	public function changeLoggedAt(): void
-	{
-		$this->lastLoggedAt = new DateTime();
-	}
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	public function getEmail(): string
-	{
-		return $this->email;
-	}
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
 
-	public function getUsername(): string
-	{
-		return $this->username;
-	}
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
 
-	public function changeUsername(string $username): void
-	{
-		$this->username = $username;
-	}
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
 
-	public function getLastLoggedAt(): ?DateTime
-	{
-		return $this->lastLoggedAt;
-	}
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
-	public function getRole(): string
-	{
-		return $this->role;
-	}
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
 
-	public function setRole(string $role): void
-	{
-		$this->role = $role;
-	}
+    /**
+     * @return bool
+     */
+    public function isPasswordChangeOnNextLogon(): bool
+    {
+        return $this->passwordChangeOnNextLogon;
+    }
 
-	public function getPasswordHash(): string
-	{
-		return $this->password;
-	}
+    /**
+     * @param bool $passwordChangeOnNextLogon
+     */
+    public function setPasswordChangeOnNextLogon(bool $passwordChangeOnNextLogon): void
+    {
+        $this->passwordChangeOnNextLogon = $passwordChangeOnNextLogon;
+    }
 
-	public function changePasswordHash(string $password): void
-	{
-		$this->password = $password;
-	}
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
 
-	public function block(): void
-	{
-		$this->state = self::STATE_BLOCKED;
-	}
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
 
-	public function activate(): void
-	{
-		$this->state = self::STATE_ACTIVATED;
-	}
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
 
-	public function isActivated(): bool
-	{
-		return $this->state === self::STATE_ACTIVATED;
-	}
+    /**
+     * @param string $language
+     */
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
+    }
 
-	public function getName(): string
-	{
-		return $this->name;
-	}
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
 
-	public function getSurname(): string
-	{
-		return $this->surname;
-	}
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
+    }
 
-	public function getFullname(): string
-	{
-		return $this->name . ' ' . $this->surname;
-	}
+    /**
+     * @return string
+     */
+    public function getPasswordRecoveryKey(): string
+    {
+        return $this->passwordRecoveryKey;
+    }
 
-	public function rename(string $name, string $surname): void
-	{
-		$this->name = $name;
-		$this->surname = $surname;
-	}
+    /**
+     * @param string $passwordRecoveryKey
+     */
+    public function setPasswordRecoveryKey(string $passwordRecoveryKey): void
+    {
+        $this->passwordRecoveryKey = $passwordRecoveryKey;
+    }
 
-	public function getState(): int
-	{
-		return $this->state;
-	}
+    /**
+     * @return ?DateTime
+     */
+    public function getPasswordRecoveryExpiresAt(): ?DateTime
+    {
+        return $this->passwordRecoveryExpiresAt;
+    }
 
-	public function setState(int $state): void
-	{
-		if (!in_array($state, self::STATES, true)) {
-			throw new InvalidArgumentException(sprintf('Unsupported state %s', $state));
-		}
+    /**
+     * @param ?DateTime $passwordRecoveryExpiresAt
+     */
+    public function setPasswordRecoveryExpiresAt(?DateTime $passwordRecoveryExpiresAt): void
+    {
+        $this->passwordRecoveryExpiresAt = $passwordRecoveryExpiresAt;
+    }
 
-		$this->state = $state;
-	}
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getInserted(): DateTime
+    {
+        return $this->inserted;
+    }
+
+    /**
+     * @param DateTime $inserted
+     */
+    public function setInserted(DateTime $inserted): void
+    {
+        $this->inserted = $inserted;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInsertedBy(): int
+    {
+        return $this->insertedBy;
+    }
+
+    /**
+     * @param int $insertedBy
+     */
+    public function setInsertedBy(int $insertedBy): void
+    {
+        $this->insertedBy = $insertedBy;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param DateTime $updated
+     */
+    public function setUpdated(DateTime $updated): void
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUpdatedBy(): int
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param int $updatedBy
+     */
+    public function setUpdatedBy(int $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeletedBy(): int
+    {
+        return $this->deletedBy;
+    }
+
+    /**
+     * @param int $deletedBy
+     */
+    public function setDeletedBy(int $deletedBy): void
+    {
+        $this->deletedBy = $deletedBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeletedData(): string
+    {
+        return $this->deletedData;
+    }
+
+    /**
+     * @param string $deletedData
+     */
+    public function setDeletedData(string $deletedData): void
+    {
+        $this->deletedData = $deletedData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDtype(): string
+    {
+        return $this->dtype;
+    }
+
+    /**
+     * @param string $dtype
+     */
+    public function setDtype(string $dtype): void
+    {
+        $this->dtype = $dtype;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getLastLoggedAt(): ?DateTime
+    {
+        return $this->lastLoggedAt;
+    }
+
+    /**
+     * @param DateTime|null $lastLoggedAt
+     */
+    public function setLastLoggedAt(?DateTime $lastLoggedAt): void
+    {
+        $this->lastLoggedAt = $lastLoggedAt;
+    }
 
 	public function getGravatar(): string
 	{
@@ -176,9 +404,7 @@ class User extends AbstractEntity
 		return new Identity($this->getId(), [$this->role], [
 			'email' => $this->email,
 			'name' => $this->name,
-			'surname' => $this->surname,
-			'state' => $this->state,
-			'gravatar' => $this->getGravatar(),
+			'status' => $this->status,
 		]);
 	}
 

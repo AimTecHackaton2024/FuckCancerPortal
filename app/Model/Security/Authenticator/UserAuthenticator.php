@@ -30,15 +30,14 @@ final class UserAuthenticator implements Authenticator
 		/** @var User|null $user */
 		$user = $this->qm->findOne(UserQuery::ofEmail($username));
 
+        bdump($user);
+
 		if ($user === null) {
 			throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
-		} elseif (!$user->isActivated()) {
-			throw new AuthenticationException('The user is not active.', self::INVALID_CREDENTIAL);
-		} elseif (!$this->passwords->verify($password, $user->getPasswordHash())) {
+		} elseif (!$this->passwords->verify($password, $user->getPassword())) {
 			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 		}
 
-		$user->changeLoggedAt();
 		$this->em->flush();
 
 		return $this->createIdentity($user);

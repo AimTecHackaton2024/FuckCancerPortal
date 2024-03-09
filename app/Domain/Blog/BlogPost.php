@@ -2,10 +2,13 @@
 
 namespace App\Domain\Blog;
 
+use App\Domain\BlogAttachment\BlogAttachment;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TAdminautFields;
 use App\Model\Database\Entity\TId;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\NullListNameDenormalizer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Blog\BlogPostRepository")
@@ -19,6 +22,7 @@ class BlogPost extends AbstractEntity
     public const STATUS_APPROVED = 2;
 
     use TId;
+
     //use TAdminautFields;
 
     /** @ORM\Column(name="photo_main", type="integer", length=11, nullable=TRUE, unique=false) */
@@ -36,6 +40,36 @@ class BlogPost extends AbstractEntity
     /** @ORM\Column(name="photo_4", type="integer", length=11, nullable=TRUE, unique=false) */
     private ?int $photo4Id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\BlogAttachment\BlogAttachment")
+     * @ORM\JoinColumn(name="photo_main", referencedColumnName="id")
+     */
+    private ?BlogAttachment $photoMain;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\BlogAttachment\BlogAttachment")
+     * @ORM\JoinColumn(name="photo_1", referencedColumnName="id")
+     */
+    private ?BlogAttachment $photo1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\BlogAttachment\BlogAttachment")
+     * @ORM\JoinColumn(name="photo_2", referencedColumnName="id")
+     */
+    private ?BlogAttachment $photo2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\BlogAttachment\BlogAttachment")
+     * @ORM\JoinColumn(name="photo_3", referencedColumnName="id")
+     */
+    private ?BlogAttachment $photo3;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\BlogAttachment\BlogAttachment")
+     * @ORM\JoinColumn(name="photo_4", referencedColumnName="id")
+     */
+    private ?BlogAttachment $photo4;
+
     /** @ORM\Column(name="title", type="string", length=255, nullable=FALSE, unique=false) */
     private string $title;
 
@@ -51,8 +85,8 @@ class BlogPost extends AbstractEntity
     /** @ORM\Column(name="article", type="string", nullable=FALSE, unique=false) */
     private string $article;
 
-    /** @ORM\Column(name="youtube_video", type="string", length=255, nullable=FALSE, unique=false) */
-    private string $youtubeVideoUrl;
+    /** @ORM\Column(name="youtube_video", type="string", length=255, nullable=TRUE, unique=false) */
+    private ?string $youtubeVideoUrl;
 
     /**
      * @return int|null
@@ -150,6 +184,48 @@ class BlogPost extends AbstractEntity
         $this->title = $title;
     }
 
+
+    /**
+     * @return ?BlogAttachment
+     */
+    public function getPhotoMain(): ?BlogAttachment
+    {
+        bdump($this->photoMain);
+        return $this->photoMain;
+    }
+
+    /**
+     * @return ?BlogAttachment
+     */
+    public function getPhoto1(): ?BlogAttachment
+    {
+        return $this->photo1;
+    }
+
+    /**
+     * @return ?BlogAttachment
+     */
+    public function getPhoto2(): ?BlogAttachment
+    {
+        return $this->photo2;
+    }
+
+    /**
+     * @return ?BlogAttachment
+     */
+    public function getPhoto3(): ?BlogAttachment
+    {
+        return $this->photo3;
+    }
+
+    /**
+     * @return ?BlogAttachment
+     */
+    public function getPhoto4(): ?BlogAttachment
+    {
+        return $this->photo4;
+    }
+
     /**
      * @return string
      */
@@ -215,18 +291,30 @@ class BlogPost extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getYoutubeVideoUrl(): string
+    public function getYoutubeVideoUrl(): ?string
     {
         return $this->youtubeVideoUrl;
     }
 
     /**
-     * @param string $youtubeVideoUrl
+     * @param ?string $youtubeVideoUrl
      */
-    public function setYoutubeVideoUrl(string $youtubeVideoUrl): void
+    public function setYoutubeVideoUrl(?string $youtubeVideoUrl): void
     {
         $this->youtubeVideoUrl = $youtubeVideoUrl;
+    }
+
+    public function getPhoto(string $photo)
+    {
+        return match ($photo)
+        {
+            'photo_main' => $this->getPhotoMain(),
+            'photo1'     => $this->getPhoto1(),
+            'photo2'     => $this->getPhoto2(),
+            'photo3'     => $this->getPhoto3(),
+            'photo4'     => $this->getPhoto4(),
+        };
     }
 }

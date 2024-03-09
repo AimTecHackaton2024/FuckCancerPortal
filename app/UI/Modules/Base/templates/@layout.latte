@@ -31,4 +31,19 @@
 	{/ifset}
 	</body>
 {/block}
+
+<script src="{$basePath}/www/assets/admin/js/toastr.min.js"></script>
+
+{snippet flashes}
+	<script n:inner-foreach="$flashes as $flash">
+	{do bdump($flash)}
+	toastr.{$flash->type|noescape}({$flash->message});
+</script>
+{/snippet}
+
+<script>
+	$(function () {
+		bsCustomFileInput.init();
+	});
+</script>
 </html>

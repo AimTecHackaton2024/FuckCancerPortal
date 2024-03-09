@@ -25,10 +25,10 @@ final class Version20240309004649 extends AbstractMigration
         $this->addSql("create table blog_attachments
                 (
                     id          int auto_increment,
-                    name        varchar(255) null,
-                    `mime/type` varchar(255) null,
-                    path        varchar(255) null,
-                    size        int          null,
+                    name        varchar(255) not null,
+                    `mime_type` varchar(255) not null,
+                    path        varchar(255) not null,
+                    size        int          not null,
                     constraint blog_attachments_pk
                         primary key (id)
                 );");
@@ -48,14 +48,6 @@ final class Version20240309004649 extends AbstractMigration
     perex          longtext     not null,
     article        longtext     not null,
     youtube_video  varchar(255) not null,
-    inserted       datetime     not null,
-    inserted_by    int          not null,
-    updated        datetime     not null,
-    updated_by     int          not null,
-    deleted        tinyint(1)   not null,
-    deleted_by     int          not null,
-    deleted_data   longtext     null,
-    active         tinyint(1)   not null,
     constraint blog_posts_blog_attachments_id_fk
         foreign key (photo_main) references blog_attachments (id),
     constraint blog_posts_blog_attachments_id_fk2

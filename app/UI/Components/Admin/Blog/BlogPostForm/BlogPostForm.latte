@@ -7,16 +7,63 @@
         </div>
         <div class="form-group">
             {label article /}
-            {input article class => "form-control"}
+            {input article class => "form-control", id => "editorTitle"}
         </div>
         <div class="form-group">
-            {label status /}
-            {input status class => "form-control"}
+            {label perex /}
+            {input perex class => "form-control", id => "editorPerex"}
         </div>
-        <div class="form-group">
-            {label youtubeVideoUrl /}
-            {input youtubeVideoUrl class => "form-control"}
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                {label status /}
+                {input status class => "form-control"}
+            </div>
+            <div class="form-group col-md-6">
+                {label youtubeVideoUrl /}
+                {input youtubeVideoUrl class => "form-control"}
+            </div>
         </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                {label publishedDate /}
+                {input publishedDate class => "form-control"}
+            </div>
+            <div class="form-group col-md-6">
+                {label postTags /}
+                {input postTags class => "form-control"}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                {label photoMain /}
+                {input photoMain class => "form-control"}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                {label photo1 /}
+                {input photo1 class => "form-control"}
+            </div>
+            <div class="form-group col-md-6">
+                {label photo2 /}
+                {input photo2 class => "form-control"}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                {label photo3 /}
+                {input photo3 class => "form-control"}
+            </div>
+            <div class="form-group col-md-6">
+                {label photo4 /}
+                {input photo4 class => "form-control"}
+            </div>
+        </div>
+
+
 
         <div class="form-group mb-0 mt-4">
             {input send class => "btn bg-gradient-primary mb-0"}
@@ -27,3 +74,18 @@
         </div>
     </form>
 {/snippet}
+
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editorTitle' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+    ClassicEditor
+        .create( document.querySelector( '#editorPerex' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+

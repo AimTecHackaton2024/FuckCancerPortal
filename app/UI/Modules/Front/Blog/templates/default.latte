@@ -1,3 +1,5 @@
+{varType array $blogPosts}
+
 {block #content}
 <section id="about">
     <div class="container">
@@ -5,13 +7,33 @@
             <h1>Blog</h1>
         </div>
 
-        <div class="row">
-            <div class="col-md-8 bg-primary">
-                Gohld
-            </div>
-            <div class="col-md-4">
-                Gohld2
-            </div>
+        <div class="px-0 mb-4 p-2 bg-fcBlue text-white row rounded-left rounded-right filter">
+            <a class="btn btn-primary">Filtrovat</a>
         </div>
+
+        {var $left = true}
+        {foreach $blogPosts as $post}
+            {varType App\Domain\Blog\BlogPost $post}
+            <div class="row post-card-row mb-5">
+                <div n:if="!$left" n:class="col-md-4, post-image, p-0, rounded-bottom-left, bg-fcPink">
+                    <img n:if="$post->getPhotoMainId() !== null" class="card-img-top" src="{$basePath}/{$post->getPhotoMain()->getPath()}" alt="obrázek k příspěvku">
+                </div>
+
+                <div n:class="col-md-8, bg-fcPink, text-fcBlue, $left ? rounded-left : rounded-right">
+                    <div class="post-header pb-0">
+                        <h2>{$post->getTitle()}</h2>
+                    </div>
+                    <div class="post-body">
+                        {$post->getPerex()|noescape}
+                    </div>
+                </div>
+
+                <div n:if="$left" n:class="col-md-4, post-image, p-0, rounded-bottom-right">
+                    <img n:if="$post->getPhotoMainId() !== null" class="card-img-top" src="{$basePath}/files/img/kitten.jpg" alt="obrázek k příspěvku">
+                </div>
+            </div>
+
+            {var $left = !$left}
+        {/foreach}
     </div>
 </section>

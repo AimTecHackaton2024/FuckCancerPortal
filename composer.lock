@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "713b19c1c2da4be21eea39257f716f0c",
+    "content-hash": "0692edc07a03245d3b1131342b0b27f7",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -103,6 +103,96 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "contributte/apitte",
+            "version": "v0.12.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/apitte.git",
+                "reference": "816aa4fb8670d8ff1bbe9777e4b70ebbb1142788"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/apitte/zipball/816aa4fb8670d8ff1bbe9777e4b70ebbb1142788",
+                "reference": "816aa4fb8670d8ff1bbe9777e4b70ebbb1142788",
+                "shasum": ""
+            },
+            "require": {
+                "contributte/middlewares": "^0.11.0 || ^0.12.0",
+                "contributte/openapi": "^0.1.0",
+                "contributte/psr7-http-message": "^0.9.0 || ^0.10.0",
+                "doctrine/annotations": "^1.14.3 || ^2.0.0",
+                "ext-json": "*",
+                "koriym/attributes": "^1.0.5",
+                "nette/di": "^3.1.8",
+                "nette/utils": "^4.0.0",
+                "php": ">=8.1"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "contributte/dev": "^0.4",
+                "contributte/phpstan": "^0.1",
+                "contributte/qa": "^0.4",
+                "contributte/tester": "^0.3",
+                "mockery/mockery": "^1.6.6",
+                "nette/application": "^3.1.4",
+                "nette/di": "^3.1.8",
+                "nette/http": "^3.2.3",
+                "psr/log": "^2.0.0 || ^3.0.0",
+                "symfony/console": "^6.4.0 || ^7.0.0",
+                "symfony/validator": "^6.4.0 || ^7.0.0",
+                "symfony/yaml": "^6.4.0 || ^7.0.0",
+                "tracy/tracy": "^2.10.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Apitte\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Šulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "An opinionated and enjoyable API framework based on Nette Framework. Supporting content negotiation, debugging, middlewares, attributes, annotations and loving openapi/swagger.",
+            "homepage": "https://github.com/contributte/apitte",
+            "keywords": [
+                "annotation",
+                "api",
+                "apitte",
+                "http",
+                "nette",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/contributte/apitte/issues",
+                "source": "https://github.com/contributte/apitte/tree/v0.12.2"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-23T16:56:48+00:00"
         },
         {
             "name": "contributte/application",
@@ -1102,6 +1192,86 @@
             "time": "2022-01-29T11:40:18+00:00"
         },
         {
+            "name": "contributte/middlewares",
+            "version": "v0.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/middlewares.git",
+                "reference": "0b6c80bf0601d9a4788b24178e34014e51596e13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/middlewares/zipball/0b6c80bf0601d9a4788b24178e34014e51596e13",
+                "reference": "0b6c80bf0601d9a4788b24178e34014e51596e13",
+                "shasum": ""
+            },
+            "require": {
+                "contributte/psr7-http-message": "^0.9.0 || ^0.10.0",
+                "nette/di": "^3.1.8",
+                "php": ">=8.1"
+            },
+            "conflict": {
+                "nette/application": "<3.2.0"
+            },
+            "require-dev": {
+                "contributte/phpstan": "^0.1",
+                "contributte/qa": "^0.4",
+                "contributte/tester": "^0.4",
+                "nette/application": "^3.2.0",
+                "nette/http": "^3.2.3",
+                "psr/log": "^2.0|^3.0",
+                "tracy/tracy": "^2.10.5"
+            },
+            "suggest": {
+                "nette/application": "to use PresenterMiddleware",
+                "nette/http": "to use NetteMiddlewareExtension & NetteMiddlewareApplication",
+                "tracy/tracy": "to use TracyMiddleware"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Contributte\\Middlewares\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Sulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "Middleware / Relay / PSR-7 support to Nette Framework",
+            "homepage": "https://github.com/contributte/middlewares",
+            "keywords": [
+                "Relay",
+                "middleware",
+                "nette"
+            ],
+            "support": {
+                "issues": "https://github.com/contributte/middlewares/issues",
+                "source": "https://github.com/contributte/middlewares/tree/v0.12.1"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-23T15:28:39+00:00"
+        },
+        {
             "name": "contributte/monolog",
             "version": "v0.5.2",
             "source": {
@@ -1251,6 +1421,78 @@
             "time": "2022-07-26T13:03:21+00:00"
         },
         {
+            "name": "contributte/openapi",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/openapi.git",
+                "reference": "a918d6235f7466c4bc6335ee9397613b7797f1e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/openapi/zipball/a918d6235f7466c4bc6335ee9397613b7797f1e6",
+                "reference": "a918d6235f7466c4bc6335ee9397613b7797f1e6",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^4.0.0",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "contributte/phpstan": "^0.1",
+                "contributte/qa": "^0.4",
+                "contributte/tester": "^0.3",
+                "symfony/yaml": "^6.4.0 || ^7.0.0",
+                "tracy/tracy": "^2.10.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Contributte\\OpenApi\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Šulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "Pure OpenAPI implementation for your API applications. Great for documentation.",
+            "homepage": "https://github.com/contributte/openapi",
+            "keywords": [
+                "api",
+                "http",
+                "nette",
+                "openapi",
+                "rest",
+                "swagger"
+            ],
+            "support": {
+                "issues": "https://github.com/contributte/openapi/issues",
+                "source": "https://github.com/contributte/openapi/tree/v0.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-12-01T18:20:22+00:00"
+        },
+        {
             "name": "contributte/pdf",
             "version": "v7.0.0",
             "source": {
@@ -1345,6 +1587,89 @@
                 }
             ],
             "time": "2023-07-24T10:06:15+00:00"
+        },
+        {
+            "name": "contributte/psr7-http-message",
+            "version": "v0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/psr7-http-message.git",
+                "reference": "d8d59f429dec7c7eaf093173077a098b004fd1d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/psr7-http-message/zipball/d8d59f429dec7c7eaf093173077a098b004fd1d5",
+                "reference": "d8d59f429dec7c7eaf093173077a098b004fd1d5",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^2.6.1",
+                "nette/utils": "^v4.0.2",
+                "php": ">=8.1"
+            },
+            "conflict": {
+                "nette/di": "<3.0.7",
+                "nette/http": "<3.0.5"
+            },
+            "require-dev": {
+                "contributte/phpstan": "^0.1",
+                "contributte/qa": "^0.3.1",
+                "contributte/tester": "^0.2.0",
+                "nette/application": "^v3.1.14",
+                "nette/di": "^3.1.8",
+                "nette/http": "^3.2.3"
+            },
+            "suggest": {
+                "nette/application": "to use $request->withApplicationRequest[Nette\\Application\\Request]",
+                "nette/di": "to use Psr7HttpExtension[CompilerExtension]",
+                "nette/http": "to use $request->withHttpRequest[Nette\\Http\\Request], to use Psr7RequestFactory, to use Psr7ServerRequestFactory"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.10.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Contributte\\Psr7\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Šulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "PSR-7 (HTTP Message Interface) to Nette Framework",
+            "homepage": "https://github.com/contributte/psr7-http-message",
+            "keywords": [
+                "http",
+                "message",
+                "nette",
+                "psr7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "issues": "https://github.com/contributte/psr7-http-message/issues",
+                "source": "https://github.com/contributte/psr7-http-message/tree/v0.10.0"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-12-15T15:54:41+00:00"
         },
         {
             "name": "contributte/redis",
@@ -3284,6 +3609,66 @@
                 }
             ],
             "time": "2023-12-03T20:05:35+00:00"
+        },
+        {
+            "name": "koriym/attributes",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koriym/Koriym.Attributes.git",
+                "reference": "7f636a3a04a746ed03f6a36be644539e0d77edbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koriym/Koriym.Attributes/zipball/7f636a3a04a746ed03f6a36be644539e0d77edbb",
+                "reference": "7f636a3a04a746ed03f6a36be644539e0d77edbb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.12 || ^2.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "ext-pdo": "*",
+                "phpunit/phpunit": "^8.5.24 || ^9.5"
+            },
+            "suggest": {
+                "koriym/param-reader": "An attribute/annotation reader for parameters"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "target-directory": "vendor-bin",
+                    "forward-command": true
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Koriym\\Attributes\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Akihito Koriyama",
+                    "email": "akihito.koriyama@gmail.com"
+                }
+            ],
+            "description": "An annotation/attribute reader",
+            "keywords": [
+                "annotation",
+                "attribute"
+            ],
+            "support": {
+                "issues": "https://github.com/koriym/Koriym.Attributes/issues",
+                "source": "https://github.com/koriym/Koriym.Attributes/tree/1.0.5"
+            },
+            "time": "2023-07-08T09:09:20+00:00"
         },
         {
             "name": "latte/latte",

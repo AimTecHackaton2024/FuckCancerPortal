@@ -29,6 +29,7 @@ class BlogPostListGrid extends BaseComponent
         $grid->addColumnNumber('id', '#');
         $grid->addColumnText('title', 'Titulek');
 
+        $grid->addAction('edit', 'Upravit', ':edit');
         return $grid;
     }
 }

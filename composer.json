@@ -45,7 +45,8 @@
     "contributte/redis": "v0.5.4",
     "contributte/oauth2-client": "^0.3.2",
     "league/oauth2-google": "^4.0",
-    "almasaeed2010/adminlte": "~3.2"
+    "almasaeed2010/adminlte": "~3.2",
+    "contributte/apitte": "^0.12.2"
   },
   "require-dev": {
     "contributte/qa": "^0.3",

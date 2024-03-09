@@ -4,6 +4,8 @@ namespace App\Model\Database;
 
 use App\Domain\Blog\BlogPost;
 use App\Domain\Blog\BlogPostRepository;
+use App\Domain\BlogTag\BlogTag;
+use App\Domain\BlogTag\BlogTagRepository;
 use App\Domain\Organization\Organization;
 use App\Domain\Organization\OrganizationRepository;
 use App\Domain\User\User;
@@ -35,5 +37,10 @@ trait TRepositories
     public function getUserOrganizationRepository(): UserOrganizationRepository
     {
         return $this->getRepository(UserOrganization::class);
+    }
+
+    public function getBlogTagRepository(): BlogTagRepository
+    {
+        return $this->getRepository(BlogTag::class);
     }
 }

@@ -104,7 +104,7 @@
 
 
 					{var $isOpen = false}
-					{var $isOpen = $isOpen || $presenter->isLinkCurrent('BlogPost:list')}
+					{var $isOpen = $isOpen || $presenter->isLinkCurrent('BlogPost:list') || $presenter->isLinkCurrent('BlogTag:list')}
 
 					<li n:class="nav-item, $isOpen ? menu-open">
 						<a href="#" n:class="nav-link, $isOpen ? active">
@@ -120,6 +120,15 @@
 								<a n:href="BlogPost:list" n:class="nav-link, $presenter->isLinkCurrent('BlogPost:list') ? active   ">
 									<i class="far fa-circle nav-icon"></i>
 									<p>Příspěvky</p>
+								</a>
+							</li>
+						</ul>
+
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a n:href="BlogTag:list" n:class="nav-link, $presenter->isLinkCurrent('BlogTag:list') ? active   ">
+									<i class="far fa-circle nav-icon"></i>
+									<p>Tagy</p>
 								</a>
 							</li>
 						</ul>
@@ -214,18 +223,18 @@
 <script src="{$basePath}/www/assets/admin/js/datagrid-spinners.js"></script>
 
 <script src="{$basePath}/www/assets/admin/js/toastr.min.js"></script>
-
+{snippet flashes}
 <script>
 
-	{ifset $flashes}
-	{foreach $flashes as $flash}
-	toastr.{$flash->type|noescape}({$flash->message});
-	{/foreach}
-	{/ifset}
+	{do bdump($flashes)}
+		{ifset $flashes}
+
+			{foreach $flashes as $flash}
+				toastr.{$flash->type|noescape}({$flash->message});
+			{/foreach}
+		{/ifset}
+
 </script>
-
-<div id="toastsContainerTopRight" class="toasts-top-right fixed">
-
-</div>
+{/snippet}
 </body>
 </html>

@@ -5,17 +5,20 @@ services:
 	- App\UI\Form\FormFactory
 	- App\UI\Components\Admin\Sign\SignInFormFactory
 	- App\UI\Components\Admin\Blog\BlogPostForm\BlogPostFormFactory
+	- App\UI\Components\Admin\BlogTag\BlogTagForm\BlogTagFormFactory
 
 	# Grids
 	- App\UI\Components\Admin\User\UserListGrid\UserListGridFactory
 	- App\UI\Components\Admin\Blog\BlogPostListGrid\BlogPostListGridFactory
 	- App\UI\Components\Organization\OrganizationListGrid\OrganizationListGridFactory
+	- App\UI\Components\Admin\BlogTag\BlogTagListGrid\BlogTagListGridFactory
 
 	# Services
 	- App\Domain\User\UserService
 	- App\Domain\Blog\BlogPostService
 	- App\Domain\Organization\OrganizationService
 	- App\Domain\UserOrganization\UserOrganizationService
+	- App\Domain\BlogTag\BlogTagService
 
 
 	# Latte ===================

@@ -27,6 +27,7 @@ class BlogPostListGrid extends BaseComponent
         $grid->setDataSource($this->blogPostService->getAllDataSource());
 
         $grid->addColumnNumber('id', '#');
+        $grid->addColumnText('title', 'Titulek');
 
         return $grid;
     }

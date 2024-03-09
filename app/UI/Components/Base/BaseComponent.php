@@ -28,15 +28,6 @@ class BaseComponent extends Control
             $this->latteFile = $this->getComponentNameWithPath();
         }
 
-
-        if (isset($this['grid']) && $this->presenter instanceof BasePresenter)
-        {
-            /** @var BaseGrid $grid */
-            $grid = $this['grid'];
-
-            $grid->setPagination($this->presenter->configManager->isGridPaginationEnabled() && $grid->isPaginated());
-        }
-
         $this->getTemplate()->setFile($this->latteFile . '.latte');
         $this->getTemplate()->componentName = $this->getComponentName();
         $this->getTemplate()->render();

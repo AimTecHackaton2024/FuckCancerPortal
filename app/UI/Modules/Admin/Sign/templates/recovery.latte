@@ -1,0 +1,20 @@
+{layout '@layoutSign.latte'}
+
+{block #name}
+    Vytvoření nového hesla
+{/block}
+
+{block #content}
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Zvolte si prosím nové heslo.</p>
+
+            {control passwordRecoveryForm}
+
+            <p class="mb-1">
+                <a n:href="Sign:in">Stránka přihlášení</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+{/block}

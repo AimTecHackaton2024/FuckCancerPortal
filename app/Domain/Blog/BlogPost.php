@@ -19,7 +19,7 @@ class BlogPost extends AbstractEntity
     public const STATUS_APPROVED = 2;
 
     use TId;
-    use TAdminautFields;
+    //use TAdminautFields;
 
     /** @ORM\Column(name="photo_main", type="integer", length=11, nullable=TRUE, unique=false) */
     private ?int $photoMainId;

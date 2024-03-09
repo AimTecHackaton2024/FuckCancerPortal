@@ -1,27 +1,29 @@
 <?php
 
-namespace App\UI\Components\Admin\BlogTag\BlogTagForm;
+namespace App\UI\Components\Admin\User\UserForm;
 
 use App\Domain\Blog\BlogPost;
 use App\Domain\Blog\BlogPostService;
 use App\Domain\BlogTag\BlogTag;
 use App\Domain\BlogTag\BlogTagService;
+use App\Domain\User\User;
+use App\Domain\User\UserService;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
 use Nette\Utils\ArrayHash;
 
-class BlogTagForm extends BaseComponent
+class UserForm extends BaseComponent
 {
-    private BlogTagService $blogTagService;
-    private ?BlogTag $blogTag;
 
-    /**
-     * @param BlogTagService $blogTagService
-     */
-    public function __construct(?BlogTag $blogTag, BlogTagService $blogTagService)
+
+    private ?User $user;
+    private UserService $userService;
+
+    public function __construct(?User $user,
+    UserService $userService)
     {
-        $this->blogTagService = $blogTagService;
-        $this->blogTag = $blogTag;
+        $this->user = $user;
+        $this->userService = $userService;
     }
 
     public function render(mixed $params = null): void
@@ -29,10 +31,11 @@ class BlogTagForm extends BaseComponent
         /** @var BaseForm $form */
         $form = $this['form'];
 
-        if ($this->blogTag)
+        if ($this->user)
         {
             $form->setDefaults([
-                'title' => $this->blogTag->getTitle(),
+                'send_new_blog_notification' => $this->user->isSendNewBlogNotification(),
+                'role' => $this->user->getRole()
             ]);
         }
 
@@ -43,9 +46,9 @@ class BlogTagForm extends BaseComponent
     {
         $form = new BaseForm();
 
-        $form->addText('title', 'Titulek')
-            ->setRequired("Titulek je povinný údaj")
-        ;
+        $form->addCheckbox('send_new_blog_notification', 'Odeslat notifikaci při vytovření článku?');
+
+        $form->addSelect('role', 'Role', User::$rolesForSelect);
 
         $form->addSubmit('send', 'Uložit');
 
@@ -57,16 +60,15 @@ class BlogTagForm extends BaseComponent
     public function formSucceeded(BaseForm $form, ArrayHash $values)
     {
 
-        try
-        {
-            if($this->blogTag === null)
+        try {
+            if($this->user === null)
             {
-                $this->blogTagService->saveTag($values['title']);
+                $this->flashError("Tento formulář slouží pouze k editaci");
 
             }
             else
             {
-                $this->blogTagService->updateTag($this->blogTag, $values['title']);
+                $this->userService->updateUser($this->user, $values['role'], $values['send_new_blog_notification']);
             }
         }
         catch (\Exception $e)

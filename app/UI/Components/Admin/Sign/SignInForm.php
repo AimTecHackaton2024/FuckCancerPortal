@@ -43,7 +43,7 @@ class SignInForm extends BaseComponent
         return $form;
     }
 
-    public function formSucceeded(BaseForm $form, ArrayHash $values)
+    public function formSucceeded(BaseForm $form, ArrayHash $values): void
     {
         try {
             $this->user->login($values['email'], $values['password']);
@@ -54,5 +54,6 @@ class SignInForm extends BaseComponent
         }
 
         $this->flashSuccess('Úspěšně přihlášen.');
+        $this->presenter->redirect(':Admin:Home:');
     }
 }

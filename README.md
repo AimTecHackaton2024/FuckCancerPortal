@@ -1,4 +1,4 @@
-Hintik Base Web
+Fuck Cancer - Návod rozběhání
 =================
 ---
 
@@ -24,22 +24,13 @@ Dále je potřeba aplikaci připojit na databázi s řádnou strukturou. Soubory
 Nastavení připojení databáze se nachází v souboru `./config/local.neon`, který je potřeba vytvořit zkopírováním z `./config/local.neon.example`.
 
 
-Po nastartování je aplikace běží na adrese https://localhost, (tedy na portu 80). Port lze přenastavit v souboru `./docker/.env`.
-
-
-
-Unit tests
-------------
-
-run test and save coverage report to the temp folder
-.\vendor\bin\tester . --coverage .\temp\cov.html -c .\tests\php.ini
-
+Po nastartování je aplikace běží na adrese https://localhost, (tedy na portu 10000). Port lze přenastavit v souboru `./docker/.env`.
 
 Databázové migrace
 --------------------
-**Při každé úpravě databáze je NUTNO vytvořit migraci!**
+**Při každé úpravě databáze je NUTNÉ vytvořit migraci!**
 
-Nejprve je nutno říct, že databázové migrace uchovávají svůj stav v tabulce doctrine_migrations,
+Nejprve je třeba říct, že databázové migrace uchovávají svůj stav v tabulce doctrine_migrations,
 která se při prvním spuštění automaticky vytvoří
 
 Vytvoření nové databázové migrace

@@ -1,0 +1,19 @@
+{layout "@layoutSign.latte"}
+
+{block name}
+    Zapomenuté heslo
+{/block}
+
+{block #content}
+    <div class="card">
+        <div class="card-body login-card-body">
+            <h5><i class="fas fa-check"></i> Hotovo</h5>
+            <p>Pokud jsou údaje v pořádku, byl odeslán email s instrukcemi pro obnovení hesla.</p>
+
+            <p class="mt-3 mb-1">
+                <a n:href="Sign:in">Stránka přihlášení</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+{/block}

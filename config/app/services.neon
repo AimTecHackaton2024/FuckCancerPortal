@@ -6,6 +6,7 @@ services:
 	- App\UI\Components\Admin\Sign\SignInFormFactory
 	- App\UI\Components\Admin\Blog\BlogPostForm\BlogPostFormFactory
 	- App\UI\Components\Admin\BlogTag\BlogTagForm\BlogTagFormFactory
+	- App\UI\Components\Admin\User\UserForm\UserFormFactory
 
 	# Grids
 	- App\UI\Components\Admin\User\UserListGrid\UserListGridFactory
@@ -19,6 +20,10 @@ services:
 	- App\Domain\Organization\OrganizationService
 	- App\Domain\UserOrganization\UserOrganizationService
 	- App\Domain\BlogTag\BlogTagService
+	- App\Model\Utils\Config(@container::getParameters())
+	- App\UI\Components\Admin\Sign\PasswordRecoveryFormFactory
+	- App\UI\Components\Admin\Sign\SignForgotFormFactory
+	- App\Model\Mail\MailManager(%baseUri%, %mailFrom%)
 
 
 	# Latte ===================

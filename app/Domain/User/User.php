@@ -25,7 +25,14 @@ class User extends AbstractEntity
     use TAdminautFields;
 
 	public const ROLE_ADMIN = 'admin';
-	public const ROLE_USER = 'user';
+	public const ROLE_EDITOR = 'editor';
+    public const ROLE_ORGANIZATION = 'organization';
+
+    public static array $rolesForSelect = [
+        self::ROLE_ADMIN=> self::ROLE_ADMIN,
+        self::ROLE_EDITOR => self::ROLE_EDITOR,
+        self::ROLE_ORGANIZATION => self::ROLE_ORGANIZATION
+        ];
 
 	public const STATE_FRESH = 1;
 	public const STATE_ACTIVATED = 2;
@@ -55,7 +62,7 @@ class User extends AbstractEntity
     private int $status;
 
     /** @ORM\Column(type="string", length=255, nullable=TRUE, unique=FALSE) */
-    private string $passwordRecoveryKey;
+    private ?string $passwordRecoveryKey;
 
     /** @ORM\Column(type="datetime", nullable=TRUE, unique=FALSE) */
     private ?DateTime $passwordRecoveryExpiresAt;
@@ -65,6 +72,21 @@ class User extends AbstractEntity
 
     /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=FALSE) */
     private string $dtype;
+
+    /**
+     * @ORM\Column(name="send_new_blog_notification", type="boolean", nullable=FALSE, unique=FALSE)
+     */
+    private bool $sendNewBlogNotification;
+
+    public function isSendNewBlogNotification(): bool
+    {
+        return $this->sendNewBlogNotification;
+    }
+
+    public function setSendNewBlogNotification(bool $sendNewBlogNotification): void
+    {
+        $this->sendNewBlogNotification = $sendNewBlogNotification;
+    }
 
 
 	public function __construct()
@@ -186,15 +208,15 @@ class User extends AbstractEntity
     /**
      * @return string
      */
-    public function getPasswordRecoveryKey(): string
+    public function getPasswordRecoveryKey(): ?string
     {
         return $this->passwordRecoveryKey;
     }
 
     /**
-     * @param string $passwordRecoveryKey
+     * @param ?string $passwordRecoveryKey
      */
-    public function setPasswordRecoveryKey(string $passwordRecoveryKey): void
+    public function setPasswordRecoveryKey(?string $passwordRecoveryKey): void
     {
         $this->passwordRecoveryKey = $passwordRecoveryKey;
     }

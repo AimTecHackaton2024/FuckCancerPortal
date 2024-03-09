@@ -54,28 +54,18 @@ final class Version20240309004649 extends AbstractMigration
     updated_by     int          not null,
     deleted        tinyint(1)   not null,
     deleted_by     int          not null,
-    deleted_data   longtext     null comment '(DC2Type:json_array)',
+    deleted_data   longtext     null,
     active         tinyint(1)   not null,
-    constraint UNIQ_78B2F93235806C06
-        unique (photo_4),
-    constraint UNIQ_78B2F9323E197F90
-        unique (photo_main),
-    constraint UNIQ_78B2F93245EA9889
-        unique (photo_1),
-    constraint UNIQ_78B2F932ABE4F9A5
-        unique (photo_3),
-    constraint UNIQ_78B2F932DCE3C933
-        unique (photo_2),
     constraint blog_posts_blog_attachments_id_fk
-        foreign key (photo_main) references FuckCancer.blog_attachments (id),
+        foreign key (photo_main) references blog_attachments (id),
     constraint blog_posts_blog_attachments_id_fk2
-        foreign key (photo_1) references FuckCancer.blog_attachments (id),
+        foreign key (photo_1) references blog_attachments (id),
     constraint blog_posts_blog_attachments_id_fk3
-        foreign key (photo_2) references FuckCancer.blog_attachments (id),
+        foreign key (photo_2) references blog_attachments (id),
     constraint blog_posts_blog_attachments_id_fk4
-        foreign key (photo_3) references FuckCancer.blog_attachments (id),
+        foreign key (photo_3) references blog_attachments (id),
     constraint blog_posts_blog_attachments_id_fk5
-        foreign key (photo_4) references FuckCancer.blog_attachments (id)
+        foreign key (photo_4) references blog_attachments (id)
 )
 ");
 

@@ -34,9 +34,10 @@ abstract class BasePresenter extends Presenter
         if($this->user->isLoggedIn())
         {
             $this->userEntity = $this->userService->getById($this->user->getId());
+            $this->template->userEntity = $this->userEntity;
         }
 
-        $this->template->userEntity = $this->userEntity;
+
     }
 
     public function addComponent(IComponent $component, ?string $name, ?string $insertBefore = null)

@@ -2,6 +2,8 @@
 
 namespace App\UI\Modules\Base;
 
+use App\Domain\User\User;
+use App\Domain\User\UserService;
 use App\Model\Latte\TemplateProperty;
 use App\Model\Security\SecurityUser;
 use App\UI\Control\TFlashMessage;
@@ -15,6 +17,22 @@ use Nette\Application\UI\Presenter;
  */
 abstract class BasePresenter extends Presenter
 {
+    /** @var UserService $userService @inject */
+    public UserService $userService;
+
+    protected ?User $userEntity = null;
+
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->user->isLoggedIn())
+        {
+            $this->userEntity = $this->userService->getById($this->user->getId());
+        }
+
+        $this->template->userEntity = $this->userEntity;
+    }
 
 	use StructuredTemplates;
 	use TFlashMessage;

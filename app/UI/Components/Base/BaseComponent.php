@@ -7,6 +7,7 @@ use App\Model\Utils\FlashMessage;
 use App\Modules\Base\BasePresenter;
 use App\UI\Control\TComponentFlashMessage;
 use App\UI\DataGrid\BaseGrid;
+use Contributte\Translation\Translator;
 use Nette\Application\UI\Control;
 use Nette\ComponentModel\IComponent;
 
@@ -15,6 +16,8 @@ class BaseComponent extends Control
     protected ?string $latteFile = null;
     private ?string $componentName = null;
     private ?string $componentNameWithPath = null;
+
+    protected Translator $translator;
 
     use TComponentFlashMessage;
 

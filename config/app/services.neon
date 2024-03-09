@@ -3,6 +3,15 @@
 services:
 	# Forms ===================
 	- App\UI\Form\FormFactory
+	- App\UI\Components\Admin\Blog\BlogPostForm\BlogPostFormFactory
+
+	# Grids
+	- App\UI\Components\Admin\User\UserListGrid\UserListGridFactory
+	- App\UI\Components\Admin\Blog\BlogPostListGrid\BlogPostListGridFactory
+
+	# Services
+	- App\Domain\User\UserService
+	- App\Domain\Blog\BlogPostService
 
 	# Latte ===================
 	latte.latteFactory:
@@ -37,6 +46,7 @@ services:
 	- App\Console\HelloCommand
 
 	- App\Model\Database\QueryManager
+	- App\Model\Database\QueryBuilderManager
 
 latte:
 	macros:

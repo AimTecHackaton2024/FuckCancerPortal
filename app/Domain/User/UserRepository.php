@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Model\Database\Repository\AbstractRepository;
+use App\Model\Exception\Logic\EntityNotFoundException;
 
 /**
  * @method User|NULL find($id, ?int $lockMode = NULL, ?int $lockVersion = NULL)
@@ -13,6 +14,17 @@ use App\Model\Database\Repository\AbstractRepository;
  */
 class UserRepository extends AbstractRepository
 {
+    public function get(int $id): User
+    {
+        $user = $this->find($id);
+
+        if($user === null)
+        {
+            throw new EntityNotFoundException();
+        }
+
+        return $user;
+    }
 
 	public function findOneByEmail(string $email): ?User
 	{

@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Model\Database\Entity\AbstractEntity;
+use App\Model\Database\Entity\TAdminautFields;
 use App\Model\Database\Entity\TCreatedAt;
 use App\Model\Database\Entity\TId;
 use App\Model\Database\Entity\TUpdatedAt;
@@ -21,6 +22,7 @@ class User extends AbstractEntity
 {
 
 	use TId;
+    use TAdminautFields;
 
 	public const ROLE_ADMIN = 'admin';
 	public const ROLE_USER = 'user';
@@ -60,27 +62,6 @@ class User extends AbstractEntity
 
     /** @ORM\Column(type="boolean", nullable=FALSE, unique=FALSE) */
     private bool $active;
-
-    /** @ORM\Column(type="datetime", nullable=FALSE, unique=FALSE) */
-    private DateTime $inserted;
-
-    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
-    private int $insertedBy;
-
-    /** @ORM\Column(type="datetime", nullable=FALSE, unique=FALSE) */
-    private DateTime $updated;
-
-    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
-    private int $updatedBy;
-
-    /** @ORM\Column(type="boolean", nullable=FALSE, unique=FALSE) */
-    private bool $deleted;
-
-    /** @ORM\Column(type="integer", length=11, nullable=FALSE, unique=FALSE) */
-    private int $deletedBy;
-
-    /** @ORM\Column(type="text", nullable=TRUE, unique=FALSE) */
-    private ?string $deletedData;
 
     /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=FALSE) */
     private string $dtype;
@@ -251,118 +232,6 @@ class User extends AbstractEntity
     }
 
     /**
-     * @return DateTime
-     */
-    public function getInserted(): DateTime
-    {
-        return $this->inserted;
-    }
-
-    /**
-     * @param DateTime $inserted
-     */
-    public function setInserted(DateTime $inserted): void
-    {
-        $this->inserted = $inserted;
-    }
-
-    /**
-     * @return int
-     */
-    public function getInsertedBy(): int
-    {
-        return $this->insertedBy;
-    }
-
-    /**
-     * @param int $insertedBy
-     */
-    public function setInsertedBy(int $insertedBy): void
-    {
-        $this->insertedBy = $insertedBy;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getUpdated(): DateTime
-    {
-        return $this->updated;
-    }
-
-    /**
-     * @param DateTime $updated
-     */
-    public function setUpdated(DateTime $updated): void
-    {
-        $this->updated = $updated;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUpdatedBy(): int
-    {
-        return $this->updatedBy;
-    }
-
-    /**
-     * @param int $updatedBy
-     */
-    public function setUpdatedBy(int $updatedBy): void
-    {
-        $this->updatedBy = $updatedBy;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted(): bool
-    {
-        return $this->deleted;
-    }
-
-    /**
-     * @param bool $deleted
-     */
-    public function setDeleted(bool $deleted): void
-    {
-        $this->deleted = $deleted;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDeletedBy(): int
-    {
-        return $this->deletedBy;
-    }
-
-    /**
-     * @param int $deletedBy
-     */
-    public function setDeletedBy(int $deletedBy): void
-    {
-        $this->deletedBy = $deletedBy;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeletedData(): string
-    {
-        return $this->deletedData;
-    }
-
-    /**
-     * @param string $deletedData
-     */
-    public function setDeletedData(string $deletedData): void
-    {
-        $this->deletedData = $deletedData;
-    }
-
-    /**
      * @return string
      */
     public function getDtype(): string
@@ -376,22 +245,6 @@ class User extends AbstractEntity
     public function setDtype(string $dtype): void
     {
         $this->dtype = $dtype;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getLastLoggedAt(): ?DateTime
-    {
-        return $this->lastLoggedAt;
-    }
-
-    /**
-     * @param DateTime|null $lastLoggedAt
-     */
-    public function setLastLoggedAt(?DateTime $lastLoggedAt): void
-    {
-        $this->lastLoggedAt = $lastLoggedAt;
     }
 
 	public function getGravatar(): string

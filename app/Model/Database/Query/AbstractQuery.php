@@ -6,28 +6,32 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
-class AbstractQuery implements Queryable
+abstract class AbstractQuery implements Queryable
 {
 
 	/** @var array<(callable(QueryBuilder):QueryBuilder)> */
 	protected array $ons = [];
 
-	public function setup(): void
-	{
-		// Can be defined in child.
-	}
+    public abstract function setup(): void;
 
-	public function doQuery(EntityManagerInterface $em): Query
-	{
-		$qb = $em->createQueryBuilder();
+    public function doQuery(EntityManagerInterface $em): Query
+    {
+        $qb = $this->getQueryBuilder($em);
+        return $qb->getQuery();
+    }
 
-		$this->setup();
+    public function getQueryBuilder(EntityManagerInterface $em): QueryBuilder
+    {
+        $qb = $em->createQueryBuilder();
+        $this->setup();
+        $this->ons = array_reverse($this->ons);
 
-		foreach ($this->ons as $on) {
-			$qb = $on($qb);
-		}
+        foreach ($this->ons as $on)
+        {
+            $qb = $on($qb);
+        }
 
-		return $qb->getQuery();
-	}
+        return $qb;
+    }
 
 }

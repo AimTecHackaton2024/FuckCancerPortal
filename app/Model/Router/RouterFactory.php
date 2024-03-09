@@ -33,6 +33,8 @@ final class RouterFactory
 	protected function buildFront(): void
 	{
 		$this->router[] = $list = new RouteList('Front');
+        $list->addRoute('o-portalu-x', 'About:default');
+
 		$list->addRoute('<presenter>/<action>[/<id>]', 'Home:default');
 	}
 

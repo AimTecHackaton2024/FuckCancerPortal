@@ -7,7 +7,7 @@
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 
 	<!-- Seo -->
-	<title>{block #title|stripHtml|trim}Webapp Skeleton{/} | Contributte</title>
+	<title>{block #title|stripHtml|trim}Webapp Skeleton{/} | Portál Xko - Fuck Cancer</title>
 
 	<!-- Meta -->
 	<meta name="description" n:ifset="#description" content="{include #description}">
@@ -19,10 +19,11 @@
 	{block #head}{/}
 </head>
 <body>
-{block #main}
-	<div class="container">
-		{include #content}
-	</div>
-{/}
+{ifset #header}
+	{include #header}
+{/ifset}
+{ifset #content}
+	{include #content}
+{/ifset}
 </body>
 </html>

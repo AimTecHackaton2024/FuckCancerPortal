@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg bg-body-white">
         <div class="container-fluid">
             <div class="navbar-brand-container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{$config->getLegacyBaseUrl()}">
                     <img src="{$basePath}/assets/front/img/x-header-logo.png" alt="X - F*ck Cancer">
                 </a>
             </div>
@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Mapa</a>
+                        <a href="{$config->getLegacyBaseUrl()}" class="nav-link">Mapa</a>
                     </li>
                     <li class="nav-item">
                         <a n:href="Blog:" n:class="nav-link, $presenter->isLinkCurrent('Blog:') ? active">Blog</a>
@@ -46,14 +46,14 @@
                         <a class="nav-link" href="https://www.fuckcancer.cz/" target="_blank">Fuck Cancer.cz</a>
                     </li>
                     <li class="nav-item d-block d-lg-none">
-                        <a class="nav-link btn btn-primary" href="#">Přidat organizaci</a>
+                        <a class="nav-link btn btn-primary" href="{$config->getLegacyBaseUrl()}/pridat-organizaci">Přidat organizaci</a>
                     </li>
                 </ul>
             </div>
             <div class="navbar-right d-none d-lg-block">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="#">Přidat organizaci</a>
+                        <a class="nav-link btn btn-primary" href="{$config->getLegacyBaseUrl()}/pridat-organizaci">Přidat organizaci</a>
                     </li>
                 </ul>
             </div>

@@ -36,7 +36,6 @@
 
 {snippet flashes}
 	<script n:inner-foreach="$flashes as $flash">
-	{do bdump($flash)}
 	toastr.{$flash->type|noescape}({$flash->message});
 </script>
 {/snippet}

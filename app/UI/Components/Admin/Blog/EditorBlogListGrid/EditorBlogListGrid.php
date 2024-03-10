@@ -26,7 +26,6 @@ class EditorBlogListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
-        bdump($this->approverId);
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
         $grid->setDataSource($this->blogPostService->getDataSourceByApprover($this->approverId));

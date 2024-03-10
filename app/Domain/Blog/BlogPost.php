@@ -227,7 +227,6 @@ class BlogPost extends AbstractEntity
      */
     public function getPhotoMain(): ?BlogAttachment
     {
-        bdump($this->photoMain);
         return $this->photoMain;
     }
 

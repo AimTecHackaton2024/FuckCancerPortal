@@ -134,7 +134,6 @@ class BlogPostService
             ->getQuery()
             ->execute()
         ;
-        bdump('test');
         $this->em->flush();
 
         foreach ($tags as $tagId)
@@ -163,7 +162,6 @@ class BlogPostService
             $result[] = $tag->getBlogTagId();
         }
 
-        bdump($result);
         return $result;
     }
 

@@ -13,7 +13,6 @@ trait TComponentFlashMessage
 
     public function flashSuccess(string $message): void
     {
-        bdump("test");
         $this->onFlash(new FlashMessage($message, FlashMessage::TYPE_SUCCESS));
     }
 
@@ -29,7 +28,6 @@ trait TComponentFlashMessage
 
     public function flashError(string $message): void
     {
-        bdump("error");
         $this->onFlash(new FlashMessage($message, FlashMessage::TYPE_ERROR));
     }
 }

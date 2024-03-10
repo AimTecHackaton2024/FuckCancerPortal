@@ -37,11 +37,6 @@ class BlogPostPresenter extends BaseAdminPresenter
     public function actionEdit(string $id)
     {
         $this->blogPost = $this->blogPostService->getById($id);
-        bdump($this->blogPost->getPostTags());
-        foreach ($this->blogPost->getPostTags() as $tag)
-        {
-            bdump($tag);
-        }
     }
 
     public function createComponentBlogPostListGrid(): BlogPostListGrid

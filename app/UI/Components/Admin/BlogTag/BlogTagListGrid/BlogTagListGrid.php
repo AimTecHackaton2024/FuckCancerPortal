@@ -45,7 +45,6 @@ class BlogTagListGrid extends BaseComponent
                 return;
             }
 
-            bdump($student);
             $this->blogTagService->removeTag($id);
             $this->flashSuccess('Ostranění studenta proběhlo úspěšně.');
             $grid->reload();

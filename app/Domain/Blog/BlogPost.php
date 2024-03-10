@@ -3,10 +3,18 @@
 namespace App\Domain\Blog;
 
 use App\Domain\BlogAttachment\BlogAttachment;
+use App\Domain\BlogPostTag\BlogPostTag;
+use App\Domain\BlogTag\BlogTag;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TAdminautFields;
+use App\Model\Database\Entity\TeamSkill;
 use App\Model\Database\Entity\TId;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Nelmio\Alice\FixtureBuilder\Denormalizer\Fixture\Chainable\NullListNameDenormalizer;
 
@@ -87,6 +95,13 @@ class BlogPost extends AbstractEntity
 
     /** @ORM\Column(name="youtube_video", type="string", length=255, nullable=TRUE, unique=false) */
     private ?string $youtubeVideoUrl;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\BlogPostTag\BlogPostTag", mappedBy="blogPost")
+     * @var Collection<int, BlogPostTag>
+     * @phpstan-ignore-next-line
+     */
+    private Collection $postTags;
 
     /**
      * @return int|null
@@ -316,5 +331,10 @@ class BlogPost extends AbstractEntity
             'photo3'     => $this->getPhoto3(),
             'photo4'     => $this->getPhoto4(),
         };
+    }
+
+    public function getPostTags(): Collection
+    {
+        return $this->postTags;
     }
 }

@@ -62,10 +62,10 @@ class BlogPostService
         $post->setPublishedDate($data['publishedDate']);
         $post->setYoutubeVideoUrl($data['youtubeVideoUrl']);
         $this->savePostTags($post, $data['postTags']);
-        /*
+
         foreach (['photoMain', 'photo1', 'photo2', 'photo3', 'photo4'] as $photoName)
 
-            /** @var FileUpload $photoData *//*
+            /** @var FileUpload $photoData */
             $photoData = $data[$photoName];
         if ($photoData !== null)
         {
@@ -76,15 +76,21 @@ class BlogPostService
                 $this->em->remove($photo);
             }
 
+            $fileName = uniqid(rand(0,20), True) . $photoData->getSanitizedName();
+            $path = 'files/img/' . $fileName;
+            $photoData->move($path);
             $photo = new BlogAttachment();
+            $photo->setName($photoData->getSanitizedName());
+            $photo->setPath($path);
+            $photo->setMimeType($photoData->getContentType());
+            $photo->setSize($photoData->getSize());
 
-            FileSystem::copy($photoData->getTemporaryFile(), '');
+            $this->em->persist($photo);
             // nahrani nove fotky a ulozeni entity
         }
-        */
 
         $this->em->persist($post);
-        $this->em->flush($post);
+        $this->em->flush();
     }
 
     public function updateBlogPost(?BlogPost $post, array $data)

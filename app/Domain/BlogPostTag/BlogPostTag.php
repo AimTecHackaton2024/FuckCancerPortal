@@ -30,7 +30,7 @@ class BlogPostTag extends AbstractEntity
     private int $blogTagId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Blog\BlogPost")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Blog\BlogPost", inversedBy="postTags")
      * @ORM\JoinColumn(name="blog_post_id", referencedColumnName="id")
      */
     private BlogPost $blogPost;
@@ -51,5 +51,10 @@ class BlogPostTag extends AbstractEntity
     public function getBlogTagId(): int
     {
         return $this->blogTagId;
+    }
+
+    public function getBlogTag(): BlogTag
+    {
+        return $this->blogTag;
     }
 }

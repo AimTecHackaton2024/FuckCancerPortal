@@ -11,6 +11,44 @@
             <a class="btn btn-primary">Filtrovat</a>
         </div>
 
+        <div id="posts-container">
+
+        </div>
+
+        <script>
+            $.ajax({
+                url: {$baseUrl} + "/api/v1/posts",
+                method: 'GET',
+                success: function(response)
+                {
+                    console.log(response);
+
+                    let left = true;
+
+                    $.each(response, function(index, element)
+                    {
+                        let container = $("#posts-container");
+                        let row = '<div class="row post-card-row mb-5"></div>';
+
+                        container.append(row);
+                        let image = '<div class="col-md-4 post-image p-0"> ' + '</div>'
+                        let left = index%2 === 0;
+                        if(left)
+                        {
+                            row.append(image);
+                        }
+
+
+                        if(!left)
+                        {
+                            row.append(image);
+                        }
+
+                    });
+                }
+            })
+        </script>
+
         {var $left = true}
         {foreach $blogPosts as $post}
             {varType App\Domain\Blog\BlogPost $post}

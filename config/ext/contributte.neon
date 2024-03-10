@@ -9,6 +9,7 @@ extensions:
 	contributte.mailing: Contributte\Mailing\DI\MailingExtension
 	contributte.post: Contributte\Mail\DI\MailExtension
 	contributte.translation: Contributte\Translation\DI\TranslationExtension
+	contributte.apitte: Apitte\Core\DI\ApiExtension
 
 contributte.console:
 	url: http://localhost/
@@ -18,6 +19,10 @@ contributte.mailing:
 	template:
 		config:
 			layout: %appDir%/resources/mail/@layout.latte
+
+contributte.apitte:
+    debug: %debugMode%
+    catchException: true
 
 contributte.monolog:
 	holder:

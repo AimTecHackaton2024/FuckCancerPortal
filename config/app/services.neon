@@ -61,6 +61,9 @@ services:
 	- App\Model\Database\QueryManager
 	- App\Model\Database\QueryBuilderManager
 
+	# API Controllers
+	- App\UI\Modules\Api\V1\PostsController
+
 latte:
 	macros:
 		- App\Model\Latte\Macros::register

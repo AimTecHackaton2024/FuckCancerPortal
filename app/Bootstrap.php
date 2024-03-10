@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Apitte\Core\Application\IApplication as ApiApplication;
 use Contributte\Bootstrap\ExtraConfigurator;
 use Nette\Application\Application as NetteApplication;
 use Nette\DI\Compiler;
@@ -69,5 +70,14 @@ final class Bootstrap
 			->getByType(SymfonyApplication::class)
 			->run();
 	}
+
+
+    public static function runApi(): void
+    {
+        self::boot()
+            ->createContainer()
+            ->getByType(ApiApplication::class)->run()
+        ;
+    }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Domain\Blog;
 
 use App\Domain\BlogAttachment\BlogAttachment;
+use App\Domain\Organization\Organization;
 use App\Domain\BlogPostTag\BlogPostTag;
 use App\Domain\BlogTag\BlogTag;
 use App\Model\Database\Entity\AbstractEntity;
@@ -28,6 +29,12 @@ class BlogPost extends AbstractEntity
     public const STATUS_NEW = 0;
     public const STATUS_ASSIGNED = 1;
     public const STATUS_APPROVED = 2;
+
+    public static $statusToText = [
+        self::STATUS_NEW => 'Nový',
+        self::STATUS_ASSIGNED => 'Zařazen ke schvalování',
+        self::STATUS_APPROVED => 'Schválený'
+    ];
 
     use TId;
 
@@ -102,6 +109,21 @@ class BlogPost extends AbstractEntity
      * @phpstan-ignore-next-line
      */
     private Collection $postTags;
+
+    /** @ORM\Column(name="organization_id", type="integer", length=11, nullable=TRUE, unique=false) */
+    private ?int $organizationId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Organization\Organization")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
+     */
+    private ?Organization $organization;
+
+    /** @ORM\Column(name="author_id", type="integer", length=11, nullable=FALSE, unique=false) */
+    private int $authorId;
+
+    /** @ORM\Column(name="approving_id", type="integer", length=11, nullable=TRUE, unique=false) */
+    private ?int $approvingId;
 
     /**
      * @return int|null
@@ -332,6 +354,50 @@ class BlogPost extends AbstractEntity
             'photo4'     => $this->getPhoto4(),
         };
     }
+
+    public function getOrganizationId(): ?int
+    {
+        return $this->organizationId;
+    }
+
+    public function setOrganizationId(?int $organizationId): void
+    {
+        $this->organizationId = $organizationId;
+    }
+
+    public function getAuthorId(): int
+    {
+        return $this->authorId;
+    }
+
+    public function setAuthorId(int $authorId): void
+    {
+        $this->authorId = $authorId;
+    }
+
+    public function getApprovingId(): ?int
+    {
+        return $this->approvingId;
+    }
+
+    public function setApprovingId(?int $approvingId): void
+    {
+        $this->approvingId = $approvingId;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+
+
+
 
     public function getPostTags(): Collection
     {

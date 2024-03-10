@@ -21,6 +21,14 @@ final class Version20240309130510 extends AbstractMigration
     {
         $this->addSql("alter table adminaut_user add send_new_blog_notification tinyint(1) default 0 not null;");
 
+        $this->addSql("
+                alter table adminaut_user
+                add organization_id int null;
+                alter table adminaut_user
+                add constraint adminaut_user_organizations_id_fk
+                foreign key (organization_id) references organizations (id);
+                ");
+
     }
 
     public function down(Schema $schema): void

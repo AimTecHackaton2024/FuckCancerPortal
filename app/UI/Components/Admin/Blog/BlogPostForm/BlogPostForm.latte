@@ -15,7 +15,8 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-md-6">
+
+            <div n:if="$_user->isAllowed('editor')" class="form-group col-md-6">
                 {label status /}
                 {input status class => "form-control"}
             </div>
@@ -26,7 +27,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-md-6">
+            <div n:if="$_user->isAllowed('editor')" class="form-group col-md-6">
                 {label publishedDate /}
                 {input publishedDate class => "form-control"}
             </div>

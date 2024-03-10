@@ -74,6 +74,11 @@ class User extends AbstractEntity
     private string $dtype;
 
     /**
+     * @ORM\Column(name="organization_id", type="integer", nullable=TRUE, unique=FALSE)
+     */
+    private ?int $organizationId;
+
+    /**
      * @ORM\Column(name="send_new_blog_notification", type="boolean", nullable=FALSE, unique=FALSE)
      */
     private bool $sendNewBlogNotification;
@@ -282,5 +287,17 @@ class User extends AbstractEntity
 			'status' => $this->status,
 		]);
 	}
+
+    public function getOrganizationId(): ?int
+    {
+        return $this->organizationId;
+    }
+
+    public function setOrganizationId(?int $organizationId): void
+    {
+        $this->organizationId = $organizationId;
+    }
+
+
 
 }

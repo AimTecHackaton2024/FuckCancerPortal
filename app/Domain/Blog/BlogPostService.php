@@ -11,6 +11,7 @@ use App\Model\Utils\FileSystem;
 use Mockery\Exception;
 use Nette\Caching\Storages\FileStorage;
 use Nette\Http\FileUpload;
+use Nette\Security\User;
 
 class BlogPostService
 {
@@ -51,17 +52,33 @@ class BlogPostService
         return $this->queryBuilderManager->getQueryBuilder(BlogPostQuery::getAll());
     }
 
-    public function createBlogPost(array $data)
+    public function getPersonalisedDataSource(int $userId): mixed
+    {
+        return $this->queryBuilderManager->getQueryBuilder(BlogPostQuery::getAllPersonalised($userId));
+    }
+
+    public function getDataSourceByApprover(?int $approverID): mixed
+    {
+        return $this->queryBuilderManager->getQueryBuilder(BlogPostQuery::getAllByApprover($approverID));
+    }
+
+    public function createBlogPost(array $data, User $user)
     {
         $post = new BlogPost();
-        bdump($data);
         $post->setTitle($data['title']);
         $post->setArticle($data['article']);
         $post->setPerex($data['perex']);
         $post->setStatus($data['status']);
         $post->setPublishedDate($data['publishedDate']);
         $post->setYoutubeVideoUrl($data['youtubeVideoUrl']);
+        $post->setAuthorId($user->getId());
+        $user = $this->em->getUserRepository()->get($user->getId());
+        $post->setOrganizationId($user->getOrganizationId());
+
+        $this->em->persist($post);
+        $this->em->flush($post);
         $this->savePostTags($post, $data['postTags']);
+
 
         foreach (['photoMain', 'photo1', 'photo2', 'photo3', 'photo4'] as $photoName)
 
@@ -88,6 +105,7 @@ class BlogPostService
             $this->em->persist($photo);
             // nahrani nove fotky a ulozeni entity
         }
+
 
         $this->em->persist($post);
         $this->em->flush();
@@ -116,7 +134,7 @@ class BlogPostService
             ->getQuery()
             ->execute()
         ;
-
+        bdump('test');
         $this->em->flush();
 
         foreach ($tags as $tagId)
@@ -163,4 +181,21 @@ class BlogPostService
 
         return $result;
     }
+
+    public function assignForReview(int $blogId, int $userId)
+    {
+        $blog = $this->getById($blogId);
+
+        if($blog->getStatus() !== (string) BlogPost::STATUS_NEW)
+        {
+            return;
+        }
+
+        $blog->setApprovingId($userId);
+        $blog->setStatus(BlogPost::STATUS_ASSIGNED);
+        $this->em->persist($blog);
+        $this->em->flush($blog);
+    }
+
+
 }

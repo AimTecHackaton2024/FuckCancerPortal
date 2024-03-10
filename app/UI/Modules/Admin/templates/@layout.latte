@@ -84,7 +84,8 @@
 						 class="img-circle elevation-2" alt="User Image">
 				</div>
 				<div class="info">
-					<a n:href="Home:" class="d-block">{$_user->getIdentity()->login}</a>
+					<a n:href="Home:" class="d-block">Fuck Cancer - Xko</a>
+
 				</div>
 			</div>
 
@@ -95,7 +96,25 @@
 					<!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
 
-					<li class="nav-item">
+					<li n:if="$_user->isAllowed('basic')" class="nav-item">
+						<a n:href="Organization:addBlog" n:class="nav-link, $presenter->isLinkCurrent('Organization:addBlog') ? active">
+							<i class="nav-icon far fa-user"></i>
+							<p>
+								Přidat článek
+							</p>
+						</a>
+					</li>
+
+					<li n:if="$_user->isAllowed('basic')" class="nav-item">
+						<a n:href="BlogPost:my" n:class="nav-link, $presenter->isLinkCurrent('BlogPost:my') ? active">
+							<i class="nav-icon far fa-user"></i>
+							<p>
+								Mé články
+							</p>
+						</a>
+					</li>
+
+					<li n:if="$_user->isAllowed('admin')" class="nav-item">
 						<a n:href="User:list" n:class="nav-link, $presenter->isLinkCurrent('User:list') ? active">
 							<i class="nav-icon far fa-user"></i>
 							<p>
@@ -104,11 +123,42 @@
 						</a>
 					</li>
 
+					{var $isOpen = false}
+					{var $isOpen = $isOpen || $presenter->isLinkCurrent('Editor:default') || $presenter->isLinkCurrent('Editor:approving')}
+
+					<li n:if="$_user->isAllowed('editor')" n:class="nav-item, $isOpen ? menu-open">
+							<a href="#" n:class="nav-link, $isOpen ? active">
+								<i class="nav-icon fas fa-clipboard-list"></i>
+								<p>
+									Editor
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a n:href="Editor:default" n:class="nav-link, $presenter->isLinkCurrent('Editor:default') ? active   ">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Nepřiřazené články k posouzení</p>
+									</a>
+								</li>
+							</ul>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a n:href="Editor:approving" n:class="nav-link, $presenter->isLinkCurrent('Editor:approving') ? active   ">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Posuzované články</p>
+									</a>
+								</li>
+							</ul>
+					</li>
+
 
 					{var $isOpen = false}
 					{var $isOpen = $isOpen || $presenter->isLinkCurrent('BlogPost:list') || $presenter->isLinkCurrent('BlogTag:list')}
 
-					<li n:class="nav-item, $isOpen ? menu-open">
+					<li n:if="$_user->isAllowed('editor')" n:class="nav-item, $isOpen ? menu-open">
 						<a href="#" n:class="nav-link, $isOpen ? active">
 							<i class="nav-icon fas fa-clipboard-list"></i>
 							<p>
@@ -134,15 +184,6 @@
 								</a>
 							</li>
 						</ul>
-					</li>
-
-					<li class="nav-item">
-						<a n:href="Settings:" n:class="nav-link, $presenter->isLinkCurrent('Settings:') ? active">
-							<i class="nav-icon fas fa-gear"></i>
-							<p>
-								Nastavení
-							</p>
-						</a>
 					</li>
 
 				</ul>

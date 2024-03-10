@@ -13,6 +13,8 @@ services:
 	- App\UI\Components\Admin\Blog\BlogPostListGrid\BlogPostListGridFactory
 	- App\UI\Components\Organization\OrganizationListGrid\OrganizationListGridFactory
 	- App\UI\Components\Admin\BlogTag\BlogTagListGrid\BlogTagListGridFactory
+	- App\UI\Components\Admin\Blog\MyBlogListGrid\MyBlogListGridFactory
+	- App\UI\Components\Admin\Blog\EditorBlogListGrid\EditorBlogListGridFactory
 
 	# Services
 	- App\Domain\User\UserService

@@ -8,20 +8,24 @@ use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
 use Exception;
 use Nette\Forms\Rule;
+use Nette\Security\User;
 use Nette\Utils\ArrayHash;
 
 class BlogPostForm extends BaseComponent
 {
     private BlogPostService $blogPostService;
     private ?BlogPost $blogPost;
+    private User $user;
 
     public function __construct(
         BlogPostService $blogPostService,
         ?BlogPost       $blogPost,
+        User $user
     )
     {
         $this->blogPostService = $blogPostService;
         $this->blogPost = $blogPost;
+        $this->user = $user;
     }
 
     public function render(mixed $params = null): void
@@ -61,16 +65,20 @@ class BlogPostForm extends BaseComponent
             ->setRequired()
         ;
 
-        $form->addSelect('status', 'Status', [
-            BlogPost::STATUS_NEW      => "Nový",
-            BlogPost::STATUS_ASSIGNED => "Přiřazený",
-            blogPost::STATUS_APPROVED => "Schválený",
-        ]);
+        if($this->user->isAllowed('editor'))
+        {
+            $form->addSelect('status', 'Status', [
+                BlogPost::STATUS_NEW      => "Nový",
+                BlogPost::STATUS_ASSIGNED => "Přiřazený",
+                blogPost::STATUS_APPROVED => "Schválený",
+            ]);
+        }
 
         $form->addMultiSelect('postTags', 'Kategorie', $this->blogPostService->getAllTagPairs());
 
-        $form->addDateTime('publishedDate', 'Publikováno');
-
+        if($this->user->isAllowed('editor')) {
+            $form->addDateTime('publishedDate', 'Publikováno');
+        }
         $form->addText('youtubeVideoUrl', 'Odkaz na YouTube video');
 
         $form->addUpload('photoMain', 'Hlavní obrázek')->addRule($form::MimeType, 'Vstupní soubor musí být obrázek JPEG nebo PNG', ['image/png', 'image/jpeg']);
@@ -88,12 +96,13 @@ class BlogPostForm extends BaseComponent
 
     public function formSucceeded(BaseForm $form, ArrayHash $values)
     {
+
         $transformedData = [
             'title'           => $values['title'],
             'article'         => $values['article'],
             'perex'           => $values['perex'],
-            'status'          => $values['status'],
-            'publishedDate'   => $values['publishedDate'] !== null ? \DateTime::createFromImmutable($values['publishedDate']) : null,
+            'status'          => empty($values['status']) === true ? BlogPost::STATUS_NEW : $values['status'],
+            'publishedDate'   => $values->offsetExists('publishedDate') ? \DateTime::createFromImmutable($values['publishedDate']) : null,
             'youtubeVideoUrl' => empty($values['youtubeVideoUrl']) ? null : $values['youtubeVideoUrl'],
             'postTags'        => $values['postTags'],
         ];
@@ -112,18 +121,25 @@ class BlogPostForm extends BaseComponent
             }
             else
             {
-                $this->blogPostService->createBlogPost($transformedData);
+                $this->blogPostService->createBlogPost($transformedData, $this->user);
             }
         }
         catch (Exception $e)
         {
-            $this->flashInfo($e);
+
             $this->flashError('Při ukládání se vyskytla chyba');
             $form->addError('Při ukládání se vyskytla chyba');
         }
 
         $this->flashSuccess('Příspěvek úspěšně uložen.');
-        $this->presenter->redirect(':list');
+
+        if($this->user->isAllowed('editor'))
+        {
+            $this->presenter->redirect('BlogPost:list');
+        }
+        else{
+            $this->presenter->redirect("BlogPost:my");
+        }
     }
 
 

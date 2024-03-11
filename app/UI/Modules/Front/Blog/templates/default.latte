@@ -16,39 +16,67 @@
         </div>
 
         <script>
+            let basePath = {$basePath}
+
             $.ajax({
                 url: {$baseUrl} + "/api/v1/posts",
                 method: 'GET',
+
                 success: function(response)
                 {
-                    console.log(response);
-
-                    let left = true;
-
-                    $.each(response, function(index, element)
-                    {
-                        let container = $("#posts-container");
-                        let row = '<div class="row post-card-row mb-5"></div>';
-
-                        container.append(row);
-                        let image = '<div class="col-md-4 post-image p-0"> ' + '</div>'
-                        let left = index%2 === 0;
-                        if(left)
-                        {
-                            row.append(image);
-                        }
-
-
-                        if(!left)
-                        {
-                            row.append(image);
-                        }
-
-                    });
+                    printContent(response);
                 }
             })
+
+            function printContent(data)
+            {
+                let left = true;
+
+                $.each(data, function(index, element)
+                {
+                    let left = index%2 === 0;
+                    let container = $("#posts-container");
+                    let row = $('<div class="row post-card-row mb-5">');
+
+                    let image = $('<div class="col-md-4 post-image p-0">');
+
+                    if(element.photo_main !== null)
+                    {
+                        image.append($('<img class="card-img-top" src="' + basePath + '/' + element.photo_main + '" alt="obrázek k příspěvku">'));
+                    }
+
+                    let postTags = $('<div>');
+
+                    $.each(element.tags, function (i, tag)
+                    {
+                        postTags.append($('<span class="badge badge-post-tag bg-fcBlue p-2">').html(tag));
+                    });
+
+                    let post = $('<div class="col-md-8 bg-fcPink text-fcBlue post-card-post ' + (left ? 'rounded-left' : 'rounded-right') + '">')
+                        .append($('<div class="post-header pb-0">').append($('<h2>').html(element.title)))
+                        .append($('<div class="post-body pb-0">')
+                            .append($('<div class="post-perex pb-0">').html(element.perex))
+                            .append($('<div class="post-tags pb-0">').append(postTags))
+                        );
+
+                    if(!left)
+                    {
+                        row.append(image);
+                    }
+
+                    row.append(post);
+
+                    if(left)
+                    {
+                        row.append(image);
+                    }
+
+                    container.append(row);
+                });
+            }
         </script>
 
+        {*}
         {var $left = true}
         {foreach $blogPosts as $post}
             {varType App\Domain\Blog\BlogPost $post}
@@ -73,5 +101,6 @@
 
             {var $left = !$left}
         {/foreach}
+        {/*}
     </div>
 </section>

@@ -10,7 +10,7 @@ section img {
   max-width: 100%;
 }
 header {
-  background: #121d47 url(/assets/front/img/x-header-background.png) repeat-x;
+  background: #121D47 url(/assets/front/img/x-header-background.png) repeat-x;
   position: relative;
   z-index: 99;
 }
@@ -120,7 +120,7 @@ h1 {
 .text-h1,
 h1 {
   font-size: 100px;
-  line-height: .9em;
+  line-height: 0.9em;
   margin-bottom: 37px;
 }
 .form-group {
@@ -246,7 +246,7 @@ ul.help-block {
   color: #1c1c1c;
   background-color: #fff;
   background-image: none;
-  border: 1px solid #e2e2e2!important;
+  border: 1px solid #e2e2e2 !important;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -257,13 +257,13 @@ ul.help-block {
 .select2-container.select2-container--focus .select2-selection,
 .select2-container.select2-container--open .select2-selection {
   background-color: #f5f5f5;
-  border-color: #2b2723!important;
+  border-color: #2b2723 !important;
   box-shadow: none;
   box-shadow: unset;
 }
 .select2-container .select2-dropdown {
   background-color: #fff;
-  border: 1px solid #e2e2e2!important;
+  border: 1px solid #e2e2e2 !important;
   border-radius: 0;
   padding: 0;
   box-sizing: border-box;
@@ -336,7 +336,7 @@ form [type="submit"] {
   font-weight: 500;
   text-align: center;
   text-decoration: none;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   outline: 0;
   transition: color 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
@@ -435,6 +435,12 @@ section#map {
   padding: 1em;
 }
 .post-body {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.post-footer {
   padding: 1em;
 }
 .post-card-row {
